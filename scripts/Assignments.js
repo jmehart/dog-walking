@@ -1,3 +1,4 @@
+import { assignedCityNames, filterWalkerCitiesByWalker } from "./CityList.js"
 import { getPets, getWalkers } from "./database.js"
 
 // Get copy of state for use in this module
@@ -24,15 +25,18 @@ export const Assignments = () => {
 
     for (const currentPet of pets) {
         const currentPetWalker = findWalker(currentPet, walkers)
+        const currentCity = filterWalkerCitiesByWalker(currentPetWalker)
+        const currentAssignment = assignedCityNames(currentCity)
+    
         assignmentHTML += `
             <li>
                 ${currentPet.name} is being walked by
-                ${currentPetWalker.name} in ${currentPetWalker.city}
+                ${currentPetWalker.name} in ${currentAssignment}
             </li>
         `
     }
 
-    assignmentHTML += "</ul>"
+    assignmentHTML += "</ul>" 
 
     return assignmentHTML
 }
